@@ -5,7 +5,7 @@ const gameStatus = document.getElementById("gameStatus");
 const scoreDisplay = document.getElementById("score");
 const newGameButton = document.getElementById("newGameButton");
 
-let targetColor = "#;";
+let targetColor;
 let  score = 0;
 
 // Function to generate a random RGB color
@@ -34,7 +34,8 @@ function startNewGame() {
         }
 
         btn.style.backgroundColor = randomColor;
-        btn.dataset.correct = index === correctIndex; // Store correct answer in dataset
+        btn.dataset.correct = index === correctIndex;
+        btn.disabled = false;
     });
 }
 
@@ -52,28 +53,13 @@ function handleColorClick(event) {
         gameStatus.textContent = "Wrong! ❌ Try again.";
         gameStatus.style.color = "red";
     }
-    gameStatus.classList.add("fade-out");
-    document.querySelectorAll("[data-testid='colorOption']").forEach(button => {
-        newGameButton.disabled = true;
-    });
-
-    setTimeout(() => {
-        // gameStatus.textContent = "";
-        gameStatus.classList.remove("fade-out");
-    }, 1000)
 }
 
 // Add event listeners to color buttons
 colorOptions.forEach(btn => btn.addEventListener("click", handleColorClick));
 
 // Add event listener to New Game button
-newGameButton.addEventListener("click", startNewGame);
+newGameButton.addEventListener('click', startNewGame);
 
 // Start the first game round
 startNewGame();
-document.getElementById ("newGameButton").addEventListener("click", () => {
-    startNewGame();
-    // document.querySelectorAll("[data-testid='colorOption']").forEach(button => {
-    //     button.disabled = false;
-    // });
-})
