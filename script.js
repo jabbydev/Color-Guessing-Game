@@ -17,10 +17,16 @@ function getRandomColor() {
 }
 
 // Function to start a new round
-function startNewGame() {
+function startNewGame(resetScore = true) {
     gameStatus.textContent = ""; // Clear status message
     targetColor = getRandomColor(); // Pick a new target color
     colorBox.style.backgroundColor = targetColor; // Set color box
+
+     // Reset score if "New Game" is clicked
+     if (resetScore) {
+        score = 0;
+        scoreDisplay.textContent = score;
+    }
 
     // Generate six color options
     let correctIndex = Math.floor(Math.random() * colorOptions.length);
@@ -48,7 +54,7 @@ function handleColorClick(event) {
         gameStatus.style.color = "green";
         score++;
         scoreDisplay.textContent = score;
-        setTimeout(startNewGame, 1000);
+        setTimeout(startNewGame(false), 1000);
     } else {
         gameStatus.textContent = "Wrong! ❌ Try again.";
         gameStatus.style.color = "red";
